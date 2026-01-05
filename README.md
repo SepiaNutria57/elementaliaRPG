@@ -13,29 +13,47 @@ This code is a tool that I want to make, kinda like a D&D Beyond but especially 
 The main combat mechanic is the **Modifiers**. Any ability can be modified based on it's compatibility:
 
 *Ability: Fireball*
+
 Type: Ranged
+
 Damage: 1d6
+
 Stamina Cost: 2
 
 *Modifier: Charged*
+
 Type: Ranged, Melee
+
 Effect: charges the attack for a turn to deal double damage
+
 Damage: 2x(total dice)
+
 Stamina Cost: 2x(total cost)
+
 Balance Cost: 3
 
 *Modifier: Dual Shot*
+
 Type: Ranged
+
 Effect: double projectiles
+
 Damage: -1dice
+
 Stamina Cost: +2
+
 Balance Cost: 1
 
 *Modifier: Lethal*
+
 Type: Melee
+
 Effect: +10 to Fighting
+
 Damage: 0
+
 Stamina Cost: +8
+
 Balance Cost: 1
 
 You can use both Charged and Dual Shot on a Fireball at the same type, but not Lethal. It's not initially complicated, but on higher levels it's common to have 4+ Modifiers, making formulas like this:
@@ -62,3 +80,4 @@ But yeah, that's it for now.
 Honestly, I never thought of actually making this into a full game. It always was just a way to be crative and have fun with some friends. But seeing more people interacting with the game, and liking it just as much if not more than me... it means something.
 
 So if you want to support this project, I'm eventually going to put some links down here for contact and funding, if it ever makes that far. Any kind of (respectful) criticism and/or help is welcomed and appreciated.
+
