@@ -18,6 +18,13 @@ enum SkillCategory { //tipo de habilidade
   CLASS
 }
 
+enum ActionType { //tipo de acao
+  NORMAL
+  BONUS
+  REACTION
+}
+
+
 enum AttributeType { //atributos
   FOR
   AGI
@@ -27,13 +34,13 @@ enum AttributeType { //atributos
   MEN
 }
 
-model SkillCheck { //teste de perícias
+model SkillCheck { //teste de pericias
   id          Int           @id @default(autoincrement())
   name        String
   attribute   AttributeType
 }
 
-model CharacterSkill { //nível de perícia da entidade
+model CharacterSkill { //nivel de perícia da entidade
   id          Int
   characterId Int
   skillId     Int
@@ -56,12 +63,22 @@ model Turn { //modelagem de turnos consecutivos (base para buffs de duração)
   createdAt DateTime @default(now())
 }
 
+model TurnState { //acoes por turno
+  id        Int      @id @default(autoincrement())
+  entityId  Int
+  turn      Int
+  actions   Int      // começa em 2
+  createdAt DateTime @default(now())
+}
+
+
 model Skill { //base para habilidades
   id          Int       @id @default(autoincrement())
   name        String
   baseDice    String
   type        SkillType
   category SkillCategory
+  actionType   ActionType
   staminaCost Int
   balanceCost Int
 

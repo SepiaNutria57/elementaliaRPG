@@ -1,13 +1,13 @@
-//define estados e condições específicas para ações de reação
+export function handleReactions(context) {
+  const reactions = [];
 
-/* Habilidade Aparo Avassalador
-if (
-  action.type === 'BLOCK' &&
-  successMargin >= 10
-) {
-  triggerReaction({
-    type: 'COUNTER_ATTACK',
-    source: character
-  });
+  if (context.event === 'BLOCK_SUCCESS' && context.margin <= -10) {
+    reactions.push({
+      type: 'COUNTER_ATTACK',
+      actionType: 'REACTION',
+      skill: 'Aparo Avassalador',
+    });
+  }
+
+  return reactions;
 }
- */

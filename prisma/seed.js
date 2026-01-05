@@ -24,7 +24,7 @@ await prisma.buff.create({
     reusable: false,
     durationTurns: 1,
     effects: {
-      create: [{ stat: 'staminaCost', value: 2 }], //utilizar damageMultiplier com priority 2
+      create: [{ stat: 'staminaCost', value: 2 }], //como multiplicar???
     },
   },
 });
