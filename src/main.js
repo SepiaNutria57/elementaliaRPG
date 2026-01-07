@@ -1,4 +1,4 @@
-document.getElementById('attackBtn').addEventListener('click', async () => {
+/* document.getElementById('attackBtn').addEventListener('click', async () => {
 
   async function attack() {
     const res = await fetch('/combat', { method: 'POST', body: ... });
@@ -87,4 +87,22 @@ document.getElementById('attackBtn').addEventListener('click', async () => {
   const result = await response.json();
 
   document.getElementById('log').textContent = JSON.stringify(result, null, 2);
-});
+}); */
+
+function roll(){
+  let tipoDado = Number(document.getElementById('dadoType').value);
+  let quantidade = document.getElementById('dadoNumber').value;
+  let i = 0;
+  let somaTotal = 0;
+  let listaResultados = [];
+
+  for (i; i<quantidade; i++){
+    let resultadoDado = Math.floor(Math.random() * tipoDado) + 1;
+    somaTotal += resultadoDado;
+
+    listaResultados.push(resultadoDado);
+  }
+
+  document.getElementById("resultHtml").innerHTML = somaTotal;
+  document.getElementById("resultDados").innerHTML = listaResultados.join(" + ");
+}
