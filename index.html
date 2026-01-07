@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/webstorm-icon-logo.svg" />
@@ -38,5 +38,41 @@
   </section>
 </main>
 
+<h2>Combate</h2>
+
+<p>Ações: <span id="actionsTurn"></span></p>
+<p>HP Inimigo: <span id="enemyHp"></span></p>
+
+<button onclick="attack()">Atacar</button>
+
+<pre id="log"></pre>
+
+<h2>Criar Buff</h2>
+
+<input id="buffName" placeholder="Nome do Buff" />
+<label>
+  <input type="checkbox" id="reusable" />
+  Reutilizável
+</label>
+
+<h3>Efeitos</h3>
+<div id="effects"></div>
+
+<button onclick="addEffect()">Adicionar efeito</button>
+<button onclick="saveBuff()">Salvar Buff</button>
+
+
+<h1>Teste de Combate</h1>
+
+<button id="attackBtn">Atacar</button>
+
+<p>Ações restantes: <span id="actions"></span></p>
+
+<button onclick="attack()">Atacar</button>
+<button onclick="bonus()">Buff (Bônus)</button>
+
+<pre id="logBattle"></pre>
+
+<script src="main.js"></script>
 </body>
 </html>
