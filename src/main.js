@@ -1,21 +1,25 @@
+//botao de ataque
+
+/*
 document.getElementById('attackBtn').addEventListener('click', async () => {
 
+
   async function attack() {
-    const res = await fetch('/combat', { method: 'POST', body: ... });
+    const res = await fetch('/combat', { method: 'POST', body: JSON.stringify(payload) }); //adicionar body json
     const data = await res.json();
 
     document.getElementById('actions').textContent =
-      data.remainingActions;
+      data.remainingActions; //checar acoes por turno
 
     document.getElementById('enemyHp').textContent =
-      data.defenderState.hp;
+      data.defenderState.hp; //checar hp do inimigo
 
     document.getElementById('log').textContent +=
-      JSON.stringify(data, null, 2) + '\n';
+      JSON.stringify(data, null, 2) + '\n'; //log de combate
   }
 
   function addEffect() {
-    const div = document.createElement('div');
+    const div = document.createElement('div'); //
 
     div.innerHTML = `
     <select class="stat">
@@ -63,6 +67,7 @@ document.getElementById('attackBtn').addEventListener('click', async () => {
     document.getElementById('actions').textContent = state.actions;
   }
 
+//teste
 
   const response = await fetch('/combat', {
     method: 'POST',
@@ -88,3 +93,112 @@ document.getElementById('attackBtn').addEventListener('click', async () => {
 
   document.getElementById('log').textContent = JSON.stringify(result, null, 2);
 });
+
+*/
+
+function normalizeDice(count, sides) {
+  const diceOrder = [3, 4, 6, 8, 10, 12, 20];
+  let idx = diceOrder.indexOf(sides);
+
+  if (count > 0) {
+    return { count, sides };
+  }
+
+  idx = Math.max(0, idx - Math.abs(count));
+  return { count: 1, sides: diceOrder[idx] };
+}
+
+
+async function roll() {
+  let tipoDado = Number(document.getElementById('dadoType').value);
+  let quantidade = document.getElementById('dadoNumber').value;
+  let i = 0;
+  let somaTotal = 0;
+  let listaResultados = [];
+
+  for (i; i < quantidade; i++) {
+    let resultadoDado = Math.floor(Math.random() * tipoDado) + 1;
+    somaTotal += resultadoDado;
+
+    listaResultados.push(resultadoDado);
+  }
+
+  document.getElementById('resultHtml').innerHTML = somaTotal;
+  document.getElementById('resultDados').innerHTML =
+    listaResultados.join(' + ');
+}
+
+async function loadModifiers() {
+  const res = await fetch('http://localhost:3000/modifiers');
+  const modifiers = await res.json();
+
+  const container = document.getElementById('modifiers');
+
+  modifiers.forEach((m) => {
+    const label = document.createElement('label');
+
+    label.innerHTML = `
+      <input
+        type="checkbox"
+        class="modifier"
+        value="${m.id}"
+      />
+      ${m.name} (${m.value > 0 ? '+' : ''}${m.value})
+    `;
+
+    container.appendChild(label);
+    container.appendChild(document.createElement('br'));
+  });
+}
+
+function applyModifiers(base, modifiers) {
+  let value = base;
+
+  // prioridade 0 – soma/subtração
+  modifiers
+    .filter(m => m.priority === 0)
+    .forEach(m => {
+      value += m.value;
+    });
+
+  // prioridade 1 – multiplicação 
+  modifiers
+    .filter(m => m.priority === 1)
+    .forEach(m => {
+      value *= m.value;
+    });
+
+  // prioridade 2 – multiplicação - resultado
+  modifiers
+    .filter(m => m.priority === 2)
+    .forEach(m => {
+      value *= m.value;
+    });
+
+  return Math.floor(value);
+}
+
+/*
+async function roll() {
+  const modifierIds = [...document.querySelectorAll('.modifier')]
+    .filter((cb) => cb.checked)
+    .map((cb) => Number(cb.value));
+
+  const res = await fetch('http://localhost:3000/roll', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      diceCount: 2,
+      diceType: 6,
+      staminaCost: 3,
+      balanceCost: 1,
+      modifierIds,
+    }),
+  });
+
+  const data = await res.json();
+  document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+}
+
+document.addEventListener('DOMContentLoaded', loadModifiers);
+*/
